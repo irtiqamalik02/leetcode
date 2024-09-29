@@ -11,9 +11,6 @@ class Solution {
             }
             
         }
-        if(start==arr.length){
-            return arr[0];
-        }
-        return arr[start];
+        return arr[start % arr.length];
     }
 }
