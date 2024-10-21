@@ -15,11 +15,16 @@ class Solution {
         if (nums[pivot] == target) {
             return pivot;
         }
-        if (target >= nums[0]) {
-            return binarySearch(nums, 0, pivot - 1, target);
+        // if (target >= nums[0]) { // 2nd condition more intuitive
+        //     return binarySearch(nums, 0, pivot - 1, target);
+        // }
+
+        // return binarySearch(nums, pivot + 1, nums.length - 1, target);
+        if(nums[0]>target){
+            return binarySearch(nums, pivot+1, nums.length-1,target);
         }
 
-        return binarySearch(nums, pivot + 1, nums.length - 1, target);
+        return binarySearch(nums, 0, pivot - 1, target);
     }
 
     private int findPivot(int[] arr) {
@@ -33,10 +38,14 @@ class Solution {
             if (mid > start && arr[mid] < arr[mid - 1]) {
                 return mid - 1;
             }
-            if (arr[start] >= arr[mid]) {
-                end = mid - 1;
-            } else {
+            // if (arr[start] >= arr[mid]) {
+            if (arr[start] < arr[mid]) {
+                // end = mid - 1;
                 start = mid + 1;
+
+            } else {
+                end = mid - 1;
+                // start = mid + 1;
             }
         }
         return -1;
