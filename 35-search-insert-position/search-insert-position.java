@@ -14,10 +14,10 @@ class Solution {
                 start = mid+1;
             }
             else{
-                //do compare with prev to check if it can lie there or not
-                if(mid> start && target> arr[mid-1] && target< arr[mid]){
-                    return mid;
-                }
+                // //do compare with prev to check if it can lie there or not
+                // if(mid> start && target> arr[mid-1] && target< arr[mid]){
+                //     return mid;
+                // }
                 end = mid-1;
             }
         }
