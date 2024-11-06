@@ -14,20 +14,22 @@ class Solution {
         // compare current and next vlaues till they are not equal
         //if equal skip the next repeating nodes otherwise continue
 
-        ListNode temp = head;
-        while(temp != null){
+        
 
+        if(head == null){
+            return head;
+        }
+        
+        ListNode temp = head;
+        while(temp.next != null){
             //check for duplicates
-            if(temp.next != null && temp.val == temp.next.val){
-                ListNode current = temp;
-                while(temp.next != null && temp.next.val ==  current.val){
-                    temp = temp.next;
-                }
-                current.next=temp.next;
-                temp=current;
+            if( temp.val == temp.next.val){
+                temp.next = temp.next.next;
+                
             }
-            //rearrange pointers
-            temp = temp.next;
+            else{
+                temp = temp.next;
+            }
 
         }
 
