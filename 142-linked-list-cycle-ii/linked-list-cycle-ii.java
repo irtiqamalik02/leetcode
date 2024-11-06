@@ -11,55 +11,56 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if (head == null) {
+
+        if(head == null){
             return null;
         }
 
-        ListNode fast = head;
-        ListNode slow = head;
-        
-        // Step 1: Detect if there is a cycle
+        ListNode fp = head;
+        ListNode sp = head;
+
+        int lengthOfCycle = 0;
         boolean hasCycle = false;
-        while (fast != null && fast.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
-            
-            // Cycle detected
-            if (fast == slow) {
+        //detect cycle
+        while(fp != null && fp.next != null){
+            fp = fp.next.next;
+            sp = sp.next;
+            if(fp == sp){
                 hasCycle = true;
                 break;
             }
         }
-        
-        // If no cycle was detected, return null
-        if (!hasCycle) {
-            return null;
+
+        if(!hasCycle){
+            return null; //since no cycle detected
         }
 
-        // Step 2: Find the length of the cycle
-        int lengthOfCycle = 0;
-        ListNode temp = slow;
-        do {
+        ListNode temp = sp;
+        do{
             temp = temp.next;
             lengthOfCycle++;
-        } while (temp != slow);
+        }while(temp != sp);
 
-        // Step 3: Find the start of the cycle
-        ListNode pointer1 = head;
-        ListNode pointer2 = head;
-        
-        // Move pointer2 ahead by the length of the cycle
-        for (int i = 0; i < lengthOfCycle; i++) {
-            pointer2 = pointer2.next;
+
+        //traverse into LL by cycle length
+        //reset pointer
+        ListNode fp2 = head;
+        ListNode sp2 = head;
+
+        for (int i = 0; i < lengthOfCycle; i++){
+            sp2 = sp2.next;
         }
 
-        // Move both pointers one step at a time until they meet at the start of the cycle
-        while (pointer1 != pointer2) {
-            pointer1 = pointer1.next;
-            pointer2 = pointer2.next;
+        // find where fp and lp meet
+        while(fp2 != sp2){
+            
+            sp2 = sp2.next;
+            fp2 = fp2.next;
+            
         }
 
-        // Both pointers now point to the start of the cycle
-        return pointer1;
+        return sp2;
     }
+
+   
 }
