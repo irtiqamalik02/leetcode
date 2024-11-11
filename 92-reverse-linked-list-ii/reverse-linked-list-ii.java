@@ -26,14 +26,15 @@ class Solution {
         ListNode newEnd = current;
 
         // reverse between left and right
-        ListNode next = current.next;
+        // ListNode next = current.next;
         for (int i = 0; current != null && i < right - left + 1; i++) {
+            ListNode next = current.next;
             current.next = prev;
             prev = current;
             current = next;
-            if (next != null) {
-                next = next.next;
-            }
+            // if (next != null) {
+            //     next = next.next;
+            // }
         }
 
         if (last != null) {
