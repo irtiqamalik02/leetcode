@@ -1,18 +1,17 @@
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> outer = new ArrayList<>();
-        outer.add(new ArrayList<>());
+    List<List<Integer>> list = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, 0);
+    return list;
+}
 
-        for(int num : nums){
-            List<List<Integer>> newSubsets = new ArrayList<>(); // Temporary list to store new subsets
-            for(List<Integer> subset : outer){
-                List<Integer> newSubset = new ArrayList<>(subset);
-                newSubset.add(num);
-                newSubsets.add(newSubset); // Add to temporary list
-            }
-            outer.addAll(newSubsets); // Add all new subsets to outer at once
-        }
-
-        return outer;
+private void backtrack(List<List<Integer>> list , List<Integer> tempList, int [] nums, int start){
+    list.add(new ArrayList<>(tempList));
+    for(int i = start; i < nums.length; i++){
+        tempList.add(nums[i]);
+        backtrack(list, tempList, nums, i + 1);
+        tempList.remove(tempList.size() - 1);
     }
+}
 }
