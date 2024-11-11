@@ -19,30 +19,53 @@ class Solution {
         // compare and return in case false
         // run loop till atleast one or both reach null whatever is earliest
 
-        ListNode mid = findMid(head);
-        ListNode midHead = reverseList(mid);
-        while(midHead != null && head != null){
-            if(midHead.val != head.val){
-                return false;
+        //ListNode mid = findMid(head);
+        // ListNode midHead = reverseList(mid);
+
+        ListNode mid = getMid(head);
+        ListNode secondHead = reverseList(mid);
+        ListNode reverseHead = secondHead;
+
+        while(secondHead != null && head != null){
+            if(secondHead.val != head.val){
+               break;
             }
-            midHead = midHead.next;
+            secondHead = secondHead.next;
             head = head.next;
         }
 
-        return true;
+        // if( head == null || secondHead == null){
+        //     return true;
+        // }
+
+        reverseList(reverseHead);
+
+        return head == null || secondHead == null;
     }
 
-    ListNode findMid ( ListNode head){
-        ListNode prevMid = null;
+    // ListNode findMid ( ListNode head){
+    //     ListNode prevMid = null;
 
-        while(head != null && head.next != null){
-            prevMid =(prevMid==null)? head: prevMid.next;
-            head = head.next.next;
+    //     while(head != null && head.next != null){
+    //         prevMid =(prevMid==null)? head: prevMid.next;
+    //         head = head.next.next;
+    //     }
+
+    //     ListNode mid = prevMid.next;
+    //     prevMid.next = null;
+    //     return mid;
+    // }
+
+    ListNode getMid ( ListNode head){
+        ListNode fp = head;
+        ListNode sp = head;
+
+        while(fp != null && fp.next != null){
+            fp = fp.next.next;
+            sp = sp.next;
         }
 
-        ListNode mid = prevMid.next;
-        prevMid.next = null;
-        return mid;
+        return sp;
     }
 
     ListNode reverseList ( ListNode head){
@@ -57,5 +80,8 @@ class Solution {
 
         head = prev;
         return head;
+        /**
+        we can also only reverse the list from mid, run loops and then compare and break out if not true and then reverse again 
+        */
     }
 }
