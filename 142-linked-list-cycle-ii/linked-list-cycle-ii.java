@@ -11,21 +11,21 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if (head == null) {
-            return null;
+        if(head == null){
+            return head;
         }
+        // find cycle length
+        ListNode fp = head;
+        ListNode sp = head;
 
-        ListNode fast = head;
-        ListNode slow = head;
-        
-        // Step 1: Detect if there is a cycle
+         // Step 1: Detect if there is a cycle
         boolean hasCycle = false;
-        while (fast != null && fast.next != null) {
-            fast = fast.next.next;
-            slow = slow.next;
+        while (fp != null && fp.next != null) {
+            fp = fp.next.next;
+            sp = sp.next;
             
             // Cycle detected
-            if (fast == slow) {
+            if (fp == sp) {
                 hasCycle = true;
                 break;
             }
@@ -35,31 +35,30 @@ public class Solution {
         if (!hasCycle) {
             return null;
         }
+        int count = 1;
+        ListNode temp = sp.next;
 
-        // Step 2: Find the length of the cycle
-        int lengthOfCycle = 0;
-        ListNode temp = slow;
-        do {
+        while(temp!= sp){
+            count++;
             temp = temp.next;
-            lengthOfCycle++;
-        } while (temp != slow);
-
-        // Step 3: Find the start of the cycle
-        ListNode pointer1 = head;
-        ListNode pointer2 = head;
-        
-        // Move pointer2 ahead by the length of the cycle
-        for (int i = 0; i < lengthOfCycle; i++) {
-            pointer2 = pointer2.next;
         }
 
-        // Move both pointers one step at a time until they meet at the start of the cycle
-        while (pointer1 != pointer2) {
-            pointer1 = pointer1.next;
-            pointer2 = pointer2.next;
+        //move sp by cycle legnht
+        //reset sp
+        sp = head;
+        fp = head;
+        while(count>0 && sp != null){
+            sp = sp.next;
+            count --;
+        }
+        // traverse 1 by 1 and find point of mating
+
+        while(sp != fp){
+            sp = sp.next;
+            fp = fp.next;
         }
 
-        // Both pointers now point to the start of the cycle
-        return pointer1;
+        return sp;
+
     }
 }
