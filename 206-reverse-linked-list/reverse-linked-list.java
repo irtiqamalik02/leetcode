@@ -10,7 +10,7 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        // in place reversal
+        //in-place reversal
         ListNode current = head;
         ListNode prev = null;
 
@@ -23,10 +23,23 @@ class Solution {
 
         head = prev;
         return head;
+       // return reverseRecursively(head);
         
     }
 
-    // void reverseRecursively(ListNode p){
+    // ListNode reverseRecursively(ListNode p){
+    //     ListNode head = new ListNode();
 
+    //     if(p.next == null){
+    //         head = p;
+    //         return head;
+    //     }
+
+        
+    //     ListNode q = reverseRecursively(p.next);
+    //     q.next = p;
+    //     p.next = null;
+
+    //     return head;
     // }
 }
