@@ -1,38 +1,26 @@
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtracking(list, new ArrayList<>(), nums,new boolean[nums.length]);
+        return list;
         
-        Arrays.sort(nums); // Sort to handle duplicates
-        boolean[] used = new boolean[nums.length]; // Track usage of each element
-       return permuteHelper(nums, new ArrayList<>(), used);
-        //return results;
     }
 
-    private  List<List<Integer>>  permuteHelper(int[] nums, List<Integer> current, boolean[] used) {
-        List<List<Integer>> results = new ArrayList<>();
-        if (current.size() == nums.length) {
-            results.add(new ArrayList<>(current));
-            return results;
-        }
+    private void backtracking(List<List<Integer>> list, List<Integer> tempList, int[] arr,
+            boolean[] used) {
+                if(tempList.size() == arr.length){
+                    list.add(new ArrayList<>(tempList));
+                }else{
+                    for(int i = 0; i < arr.length; i++){
+                        if(used[i] || i > 0 && arr[i] == arr[i-1] && !used[i - 1]) continue;
+                        used[i] = true;
+                        tempList.add(arr[i]);
+                        backtracking(list,tempList,arr,used);
+                        used[i]= false;
+                        tempList.remove(tempList.size()-1);
+                    }
+                }
 
-        for (int i = 0; i < nums.length; i++) {
-            // Skip this element if it is a duplicate of the previous element and the previous element hasn't been used in the current recursive path
-            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
-                continue;
-            }
-            if (!used[i]) {
-                // Choose
-                used[i] = true;
-                current.add(nums[i]);
-                
-                // Explore
-                results.addAll(permuteHelper(nums, current, used));
-                
-                // Un-choose (backtrack)
-                used[i] = false;
-                current.remove(current.size() - 1);
-            }
-        }
-
-        return results;
     }
 }
