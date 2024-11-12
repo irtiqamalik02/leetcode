@@ -1,34 +1,20 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        return permuteHelper(new ArrayList<>(),nums);
+        List<List<Integer>> list = new ArrayList<>();
+        backtracking(list, new ArrayList<>(), nums);
+        return list;
     }
 
-    private List<List<Integer>> permuteHelper(List<Integer> processed, int[] unprocessed) {
-        List<List<Integer>> results = new ArrayList<>();
-
-        // Base case: if processed list has the same length as nums, we have a complete
-        // permutation
-        if (processed.size() == unprocessed.length) {
-            results.add(new ArrayList<>(processed)); // Add a copy of processed list to results
-            return results;
+    private void backtracking (List<List<Integer>> list, List<Integer> tempList, int[] arr){
+        if(tempList.size() == arr.length){
+            list.add(new ArrayList<>(tempList));
+        }else{
+            for(int i = 0; i < arr.length; i++){
+                if(tempList.contains(arr[i])) continue;
+                tempList.add(arr[i]);
+                backtracking(list,tempList,arr);
+                tempList.remove(tempList.size()-1);
+            }
         }
-
-        // Recursively insert the next unprocessed element at each position in processed
-        for (int i = 0; i < unprocessed.length; i++) {
-            if (processed.contains(unprocessed[i]))
-                continue; // Skip if element is already in processed
-
-            // Choose: add unprocessed[i] to the processed list at the next available
-            // position
-            processed.add(unprocessed[i]);
-
-            // Explore: call permuteHelper with updated processed list
-            results.addAll(permuteHelper(processed, unprocessed));
-
-            // Un-choose (backtrack): remove the last added element for the next iteration
-            processed.remove(processed.size() - 1);
-        }
-
-        return results;
     }
 }
