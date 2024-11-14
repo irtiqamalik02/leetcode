@@ -8,32 +8,36 @@ class MyQueue {
     public MyQueue() {
         stack1 = new Stack<>();
         stack2 = new Stack<>();
-        //size = 0;
+        
     }
     
     public void push(int x) {
-    
-        stack1.add(x);
+        //insert is O(1)
+        stack1.push(x);
     }
     
     public int pop() {
+        //pop is O(N); can make it O(1) by storing in another stack but then insert will be O(N)
         while(!stack1.isEmpty()){
-            stack2.add(stack1.pop());
+            stack2.push(stack1.pop());
         }
+
         int poppedElement = stack2.pop();
-         while(!stack2.isEmpty()){
-            stack1.add(stack2.pop());
+
+        while(!stack2.isEmpty()){
+            stack1.push(stack2.pop());
         }
+
         return poppedElement;
     }
     
     public int peek() {
         while(!stack1.isEmpty()){
-            stack2.add(stack1.pop());
+            stack2.push(stack1.pop());
         }
         int peekElement = stack2.peek();
-         while(!stack2.isEmpty()){
-            stack1.add(stack2.pop());
+        while(!stack2.isEmpty()){
+            stack1.push(stack2.pop());
         }
         return peekElement;
     }
