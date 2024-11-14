@@ -2,19 +2,17 @@ class MyQueue {
 
     Stack<Integer> stack1 ;
     Stack<Integer> stack2 ;
-    private static final int DEFAULT_SIZE = 100;
-    protected int size;
+    // private static final int DEFAULT_SIZE = 100;
+    // protected int size;
 
     public MyQueue() {
         stack1 = new Stack<>();
         stack2 = new Stack<>();
-        size = 0;
+        //size = 0;
     }
     
     public void push(int x) {
-        // if(stack1.size == this.size){
-
-        // }
+    
         stack1.add(x);
     }
     
