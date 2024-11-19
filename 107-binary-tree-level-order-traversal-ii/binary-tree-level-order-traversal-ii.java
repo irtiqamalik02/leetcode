@@ -31,10 +31,10 @@ class Solution {
                     queue.offer(current.right);
                 nodesAtLevel.add(current.val);
             }
-            answers.add(nodesAtLevel);
+            answers.add(0,nodesAtLevel);
         }
 
-        Collections.reverse(answers);
+        //Collections.reverse(answers);
         return answers;
     }
 }
