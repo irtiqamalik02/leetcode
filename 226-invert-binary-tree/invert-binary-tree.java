@@ -15,22 +15,18 @@
  */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        if(root == null) return root;
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            TreeNode current = queue.poll();
-            if(current.left != null)
-                queue.offer(current.left);
-            if(current.right != null) 
-                queue.offer(current.right);
-            swapNodes(current);
-        }
+        //invert using postorder LRD
 
+        postOrder(root);
         return root;
+
     }
 
-    private void swapNodes(TreeNode root){
+    private void postOrder(TreeNode root){
+        if(root == null) return;
+        postOrder(root.left);
+        postOrder(root.right);
+
         TreeNode temp = root.left;
         root.left = root.right;
         root.right = temp;
