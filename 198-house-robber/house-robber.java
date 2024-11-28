@@ -1,25 +1,18 @@
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp,-1);
-
+        if (n == 0) return 0;
+        if (n == 1) return nums[0];
         
-        return robHelper(n-1, nums, dp);
-    }
-
-    private int robHelper(int index, int[] nums, int[] dp) {
-        if (index == 0) return nums[index];  // Base case: no houses left to rob
-        if(index < 0) return 0;
-        if (dp[index] != -1) return dp[index];  // Return previously computed value
-
-        // Option 1: Skip the current house
-        int skip = robHelper(index - 1, nums, dp);
-
-        // Option 2: Rob the current house and skip the next one
-        int rob = nums[index] + robHelper(index - 2, nums, dp);
-
-        dp[index] = Math.max(skip, rob);  // Store the maximum of the two options
-        return dp[index];
+        int[] dp = new int[n];
+        dp[0] = nums[0]; // Base case: only one house to rob
+        dp[1] = Math.max(nums[0], nums[1]); // Base case: rob either house 0 or house 1
+        
+        for (int i = 2; i < n; i++) {
+            // Either rob the current house and add the result of (i-2) or skip the current house
+            dp[i] = Math.max(dp[i - 1], nums[i] + dp[i - 2]);
+        }
+        
+        return dp[n - 1]; // Return the result for the last house
     }
 }
